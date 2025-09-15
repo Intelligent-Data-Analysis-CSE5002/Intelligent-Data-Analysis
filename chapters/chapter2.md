@@ -1,0 +1,64 @@
+---
+layout: page
+title: 第二章：数据预处理
+---
+
+# 第二章：数据预处理
+
+> 🎯 **本章目标**：掌握数据清洗和预处理技术
+
+## 📚 学习内容
+
+### 2.1 数据质量评估
+- 缺失值检测
+- 异常值识别
+- 数据一致性检查
+- 重复数据处理
+
+### 2.2 数据清洗技术
+- 缺失值处理策略
+- 异常值处理方法
+- 数据标准化
+- 数据变换
+
+### 2.3 特征工程
+- 特征选择
+- 特征创建
+- 特征缩放
+- 编码技术
+
+## 💻 实践练习
+
+### 练习1：缺失值处理
+```python
+# 检查缺失值
+missing_data = data.isnull().sum()
+print(missing_data)
+
+# 填充缺失值
+data['column'].fillna(data['column'].mean(), inplace=True)
+```
+
+### 练习2：异常值检测
+```python
+# 使用IQR方法检测异常值
+Q1 = data['column'].quantile(0.25)
+Q3 = data['column'].quantile(0.75)
+IQR = Q3 - Q1
+
+# 定义异常值边界
+lower_bound = Q1 - 1.5 * IQR
+upper_bound = Q3 + 1.5 * IQR
+```
+
+## 📝 作业
+
+1. 完成数据清洗实践项目
+2. 提交特征工程报告
+3. 准备下章机器学习内容
+
+## 🔗 相关资源
+
+- [返回课程主页](../index.html)
+- [上一章：数据分析基础](chapter1.html)
+- [下一章：机器学习简介](chapter3.html)
