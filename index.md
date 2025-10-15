@@ -370,8 +370,8 @@ description: 课程内容、课件、工具与视频一站式展示
       </div>
       <div class="card">
         <span class="card-icon">🔧</span>
-        <h3 class="card-title">POINTS工具介绍</h3>
-        <p class="card-desc">POINTS工具的功能特性、使用方法和最佳实践</p>
+        <h3 class="card-title">标注工具介绍</h3>
+        <p class="card-desc">标注工具的功能特性、使用方法和实践</p>
         <div class="card-footer">
           <a href="modules/points-tool.html" class="btn-primary">学习使用</a>
         </div>

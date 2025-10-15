@@ -1,6 +1,6 @@
 ---
 layout: page
-title: POINTS工具介绍
+title: 标注工具介绍
 ---
 
 # 自动驾驶数据集标注工具
