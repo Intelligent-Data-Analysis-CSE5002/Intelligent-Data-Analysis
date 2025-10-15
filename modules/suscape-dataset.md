@@ -28,6 +28,9 @@ title: SUScape数据集介绍
 
 ![dataset sample](./suscape-dataset-images/front-lidar-1.gif)
 
+
+
+
 ### 硬件平台
 
 ![Car Image](./suscape-dataset-images/car.png)
@@ -81,6 +84,14 @@ title: SUScape数据集介绍
 
 
 ![camera-calibration](./suscape-dataset-images/radar-lidar-calib.png)
+
+
+
+#### 标定效果
+
+下图为前向相机和主雷达点云标定后的显示效果
+
+![cam-lidar-calib-result](./suscape-dataset-images/camera-lidar-calibration.png)
 
 ### 数据采集
 
