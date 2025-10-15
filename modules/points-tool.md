@@ -55,15 +55,7 @@ SUSTechPOINTS是面向自动驾驶的3D点云目标检测及追踪标注平台�
 
 https://github.com/naurril/SUSTechPOINTS
 
-### 官方文档
-- [用户手册](https://points.org/docs/user-guide)
-- [API参考](https://points.org/docs/api)
-- [算法详解](https://points.org/docs/algorithms)
 
-### 社区资源
-- [GitHub仓库](https://github.com/points-org/toolkit)
-- [用户论坛](https://forum.points.org)
-- [视频教程](https://youtube.com/points-tutorials)
 
 ## 🔗 导航链接
 
