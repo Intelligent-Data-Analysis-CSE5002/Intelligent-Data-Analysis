@@ -3,11 +3,15 @@ layout: page
 title: POINTS工具介绍
 ---
 
-# POINTS工具介绍
+# 自动驾驶数据集标注工具
 
-> 🎯 **模块目标**：掌握POINTS工具的功能特性、使用方法和最佳实践
+> 🎯 **模块目标**：掌握自动驾驶数据集标注工具的特性和用法
 
-## 🔧 工具概述
+## 简介
+
+## 点云分割标注工具
+## 图片分割标注工具
+## SUSTechPOINTS - 3D目标检测及追踪标注工具
 
 SUSTechPOINTS是面向自动驾驶的3D点云目标检测及追踪标注平台，支持如下功能
 
@@ -29,21 +33,27 @@ SUSTechPOINTS是面向自动驾驶的3D点云目标检测及追踪标注平台�
 ![batch edit](./sustech-points-images/batch.png)
 
 
-## 整体架构
+### 整体架构
 
 
 
-## 关键技术和算法
-### 关键组件
+### 关键技术和算法
+#### 关键组件
 - threejs
 
-### 自动标注算法
+#### 自动标注算法
 - deepannotate
 
-### 3D渲染
+#### 3D渲染
+
+
+## 其他标注工具
+
 
 
 ## 🔗 相关资源
+
+https://github.com/naurril/SUSTechPOINTS
 
 ### 官方文档
 - [用户手册](https://points.org/docs/user-guide)
