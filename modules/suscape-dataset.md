@@ -24,6 +24,10 @@ title: SUScape数据集介绍
 - 包含雨伞、乘客、车门开启等属性
 - 自车位姿/激光雷达位姿
 
+### 数据集样例
+
+![dataset sample](./suscape-dataset-images/front-lidar-1.gif)
+
 ### 硬件平台
 
 ![Car Image](./suscape-dataset-images/car.png)
