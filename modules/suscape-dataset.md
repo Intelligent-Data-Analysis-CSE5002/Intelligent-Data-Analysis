@@ -29,11 +29,35 @@ title: SUScape数据集介绍
 
 ![dataset sample](./suscape-dataset-images/front-lidar-1.gif)
 
-> 数据样例浏览网址(校内课访问): https://172.18.35.208:18082
+数据样例浏览网址(校内课访问): https://172.18.35.208:18082
 默认登录guest账号，登录后选择scene/frame即可开始浏览
 (guest账号没有保存权限)
 
 ### 数据格式说明
+
+数据集以20s长度的场景为单位存储，每个场景为一个文件目录，相机图片均为jpg文件，雷达文件为pcd文件，其他为文本或者json文件。所有文件可以使用标准的工具进行查看。
+
+```
+> ls suscape_scenes/scene-000000 -al
+total 240
+drwxrwxrwx   13 ubuntu ubuntu   4096 Sep  3 02:14 .
+drwxrwxrwx 1063 ubuntu ubuntu 188416 Dec 23  2024 ..
+drwxrwxrwx    8 ubuntu ubuntu   4096 Jul  4  2022 aux_camera
+drwxrwxrwx    6 ubuntu ubuntu   4096 Jul  4  2022 aux_lidar
+drwxrwxrwx    5 ubuntu ubuntu   4096 Sep 12 03:35 calib
+drwxrwxrwx    8 ubuntu ubuntu   4096 Jul  4  2022 camera
+-rwxrwxrwx    1 ubuntu ubuntu    179 Aug 23  2023 desc.json
+drwxrwxrwx    2 ubuntu ubuntu   4096 Jul  4  2022 ego_pose
+drwxrwxrwx    2 ubuntu ubuntu   4096 Aug  5  2023 label
+drwxrwxrwx    4 ubuntu ubuntu   4096 Aug 18  2023 label_fusion
+drwxrwxrwx    2 ubuntu ubuntu   4096 May 24  2023 lidar
+drwxrwxrwx    2 ubuntu ubuntu   4096 Jun 21  2023 lidar_pose
+drwxrwxrwx    2 ubuntu ubuntu   4096 Jun 21  2023 map
+drwxrwxrwx   14 ubuntu ubuntu   4096 Aug  7  2023 radar
+
+```
+
+> aux_camera 为红外相机图片，aux_lidar为盲区雷达点云， ego_pose为gps定位信息， lidar_pose为主雷达在本场景内的位置信息（以第一帧为原点）， map中为本场景所有点云合并后的点云地图， calib为标定信息， desc.json为场景的简单描述。
 
 ### 硬件平台
 
