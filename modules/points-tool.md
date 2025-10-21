@@ -85,8 +85,8 @@ SUSTechPOINTS是面向自动驾驶的3D点云目标检测及追踪标注平台�
 
 实现方法：对应的编辑空间后方为3D渲染区域(threejs)，表层为透明的2D编辑界面(SVG，途中虚线即为可拖拽对象)。在2D界面操作后根据投影关系计算3D框的变换，让操作者感觉和直接操作3D框效果一样。类似于在窗户玻璃上进行拖拽操作，实现对屋子里的物体的变换。
 
-![alt text](sustech-points-images/2d-edit.png)
 
+<img src="sustech-points-images/2d-edit.png" alt="2d edit" height="400"/>
 
 #### 批处理界面渲染
 
@@ -110,7 +110,7 @@ SUSTechPOINTS是面向自动驾驶的3D点云目标检测及追踪标注平台�
 1. 前端根据旋转角度确定物体的大小和位置（每个轴的最大最小值及中间值）
 1. 前端汇出对应的3D box，各子视图自动更新
 
-![auto-rotate](./sustech-points-images/auto-rotate.gif)
+<img src="./sustech-points-images/auto-rotate.gif" alt="rotation" width="300"/>
 
 #### 多帧自动标注算法
 
