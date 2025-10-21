@@ -29,35 +29,92 @@ title: SUScape数据集介绍
 
 ![dataset sample](./suscape-dataset-images/front-lidar-1.gif)
 
-数据样例浏览网址(校内课访问): https://172.18.35.208:18082
+数据样例浏览网址(校内访问): https://172.18.35.208:18082
 默认登录guest账号，登录后选择scene/frame即可开始浏览
 (guest账号没有保存权限)
 
 ### 数据格式说明
 
-数据集以20s长度的场景为单位存储，每个场景为一个文件目录，相机图片均为jpg文件，雷达文件为pcd文件，其他为文本或者json文件。所有文件可以使用标准的工具进行查看。
+数据集以20s长度的场景为单位存储，每个场景为一个文件目录，相机图片均为jpg文件，雷达文件为pcd文件，其他为文本或者json文件。所有文件可以使用标准的工具进行查看(pcd文件可以使用meshlab或者pcl_viewer查看)。
 
 ```
-> ls suscape_scenes/scene-000000 -al
-total 240
-drwxrwxrwx   13 ubuntu ubuntu   4096 Sep  3 02:14 .
-drwxrwxrwx 1063 ubuntu ubuntu 188416 Dec 23  2024 ..
-drwxrwxrwx    8 ubuntu ubuntu   4096 Jul  4  2022 aux_camera
-drwxrwxrwx    6 ubuntu ubuntu   4096 Jul  4  2022 aux_lidar
-drwxrwxrwx    5 ubuntu ubuntu   4096 Sep 12 03:35 calib
-drwxrwxrwx    8 ubuntu ubuntu   4096 Jul  4  2022 camera
--rwxrwxrwx    1 ubuntu ubuntu    179 Aug 23  2023 desc.json
-drwxrwxrwx    2 ubuntu ubuntu   4096 Jul  4  2022 ego_pose
-drwxrwxrwx    2 ubuntu ubuntu   4096 Aug  5  2023 label
-drwxrwxrwx    4 ubuntu ubuntu   4096 Aug 18  2023 label_fusion
-drwxrwxrwx    2 ubuntu ubuntu   4096 May 24  2023 lidar
-drwxrwxrwx    2 ubuntu ubuntu   4096 Jun 21  2023 lidar_pose
-drwxrwxrwx    2 ubuntu ubuntu   4096 Jun 21  2023 map
-drwxrwxrwx   14 ubuntu ubuntu   4096 Aug  7  2023 radar
+>$ tree suscape_scenes/scene-000100   -d 0
+suscape_scenes/scene-000100
+├── aux_camera    //红外相机
+│   ├── front
+│   ├── front_left
+│   ├── front_right               
+│   ├── rear
+│   ├── rear_left
+│   └── rear_right
+├── aux_lidar   //盲区雷达
+│   ├── front
+│   ├── left
+│   ├── rear
+│   └── right
+├── calib       // 内外参标定
+│   ├── aux_camera
+│   │   ├── front
+│   │   ├── front_left
+│   │   ├── front_right
+│   │   ├── rear
+│   │   ├── rear_left
+│   │   └── rear_right
+│   ├── aux_lidar -> ../../../calib_2/aux_lidar
+│   ├── camera
+│   │   ├── front
+│   │   ├── front_left
+│   │   ├── front_right
+│   │   ├── rear
+│   │   ├── rear_left
+│   │   └── rear_right
+│   └── radar -> ../../../calib_2/radar
+├── camera   //可见光相机
+│   ├── front
+│   ├── front_left
+│   ├── front_right
+│   ├── rear
+│   ├── rear_left
+│   └── rear_right
+├── ego_pose    // gps定位信息
+├── label       // 3D标注信息
+├── label_fusion  // 2D标注信息
+│   ├── aux_camera
+│   │   ├── front
+│   │   ├── front_left
+│   │   ├── front_right
+│   │   ├── rear
+│   │   ├── rear_left
+│   │   └── rear_right
+│   └── camera
+│       ├── front
+│       ├── front_left
+│       ├── front_right
+│       ├── rear
+│       ├── rear_left
+│       └── rear_right
+├── lidar       //主激光雷达点云
+├── lidar_pose   // 主激光雷达位姿
+├── map          // 合并点云地图
+└── radar        // 毫米波雷达数据
+    ├── points_front
+    ├── points_front_left
+    ├── points_front_right
+    ├── points_rear
+    ├── points_rear_left
+    ├── points_rear_right
+    ├── tracks_front
+    ├── tracks_front_left
+    ├── tracks_front_right
+    ├── tracks_rear
+    ├── tracks_rear_left
+    └── tracks_rear_right
+
 
 ```
 
-> aux_camera 为红外相机图片，aux_lidar为盲区雷达点云， ego_pose为gps定位信息， lidar_pose为主雷达在本场景内的位置信息（以第一帧为原点）， map中为本场景所有点云合并后的点云地图， calib为标定信息， desc.json为场景的简单描述。
+> lidar_pose为主雷达在本场景内的位置信息（以第一帧为原点）， 
+
 
 ### 硬件平台
 
@@ -136,6 +193,16 @@ PTP Master和NovTel均同步于GPS时间。相机及车载电脑的时间与PTP 
 
 - 相机和激光雷达标定
 
+   - 粗标
+
+    ![alt text](suscape-dataset-images/lidar-camera.png)
+
+    > 通过图片和点云点的对应关系和坐标，计算（优化）外参
+
+   - 精细调整工具（手工）
+    ![alt text](suscape-dataset-images/calib-tool.png)
+    > 该工具支持实时可视化外侧效果，通过调整相机box的位置和旋转，精细调整外参
+
 - 惯导设备和激光雷达标定
 
 #### 标定效果
@@ -147,17 +214,30 @@ PTP Master和NovTel均同步于GPS时间。相机及车载电脑的时间与PTP 
 
 ![cam-lidar-calib-result](./suscape-dataset-images/points-projection-to-image.png)
 
+
+### 数据集构建过程
+![alt text](./suscape-dataset-images/dataset-build-workflow.png)
+
 ### 数据采集
 
 本数据集的数据主要在深圳采集。
 
-采集软件： 数据采集使用ROS系统，数据存储为rosbag文件格式。
+- 采集软件： 数据采集使用ROS系统，数据存储为rosbag文件格式。
 > 采集软件的主要功能除获取数据并保存到硬盘外，还有监控数据是否正常，是否发生丢帧等功能。
 
+
+- 采集地点
+
+![alt text](./suscape-dataset-images/data-collect-map.png)
 
 ### 数据预处理
 
 - 相机图片去畸变
+
+![alt text](image.png)
+
+上图为红外相机去畸变效果，可见畸变的直线（标定板边沿）恢复为直线了。
+
 - 点云去畸变(运动畸变)
 ![alt text](./suscape-dataset-images/lidar-restore.png)
 
@@ -180,6 +260,18 @@ PTP Master和NovTel均同步于GPS时间。相机及车载电脑的时间与PTP 
 
 - 数据帧对齐
 
+无论激光雷达还是相机图片，从rosbag解包后均按时间戳命名。
+
+数据帧对齐的目的是将不同传感器的数据对应起来，对齐之后的数据文件命名相同，后续使用时能方面的知道那些数据是同一帧的。
+
+我们采用绝对时间对齐方法：
+- 通过惯导pps硬件信号(pulse per second)，控制主激光雷达（10hz）与0.1s对齐
+- 通过雷达-相机触发机制，控制相机触发时间（根据安装角度课集选对应相机的触发时间）
+
+将雷达/相机数据对齐到最近的理想触发时间点，是为帧id.
+
+
+
 ### 数据筛选
 
 
@@ -193,11 +285,25 @@ PTP Master和NovTel均同步于GPS时间。相机及车载电脑的时间与PTP 
 - 类别及属性
 - 2DBox（通过3Dbox和点云映射生成，部分由人工修正）
 
+具体标注方法参考下一模块介绍。
+
+### 隐私保护
+
+数据集的隐私保护主要防止敏感信息泄露：确保车辆、行人等可能涉及的个人身份信息（如车牌、面部特征等）得到有效保护，避免隐私被滥用。
+- 人脸
+- 车牌
+- 喷绘车牌号码
+
+我们通过检测算法和人工修正进行关键区域的识别，然后使用高斯filter进行模糊化处理。
+
+![alt text](suscape-dataset-images/privacy-protection.png)
+
+> 图上红色框内为喷绘车牌号码
 
 ### 相关论文与资源
 
 ## 🔗 导航链接
 
 - [返回主页](../index.html)
-- [下一模块：POINTS工具介绍](points-tool.html)
+- [下一模块：标注工具介绍](points-tool.html)
 - [数据分析模块](data-analysis.html)
