@@ -124,13 +124,31 @@ SUSTechPOINTS是面向自动驾驶的3D点云目标检测及追踪标注平台�
 
 #### Webgl画布与批处理编辑
 
-## 点云分割标注工具
 
-![point-cloud-semseg](./semseg-points-images/point-semseg.png)
 ## 图片分割标注工具
 
 
+**简介**
+
+语义分割将图像中每个像素分配到不同的语义类别中，实现对图像内容的精细划分，分割能够有效地捕捉图像中物体的形状和边缘信息，为后续下游应有提供基础。下图为分割标注效果图。
+
+![alt text](./semseg-images/semseg-example.png)
+
+
+语义分割工具的关键功能为多边形的操作和计算，包括绘制/修改/合并/intersection，对象的管理，类别编辑等。
+
+
 ![semantic segmentation tool](./semseg-images/semseg.png)
+
+
+
+
+## 点云分割标注工具
+
+点云分割与图片类似，但是需要在3D空间操作。
+
+![point-cloud-semseg](./semseg-points-images/point-semseg.png)
+
 
 
 
