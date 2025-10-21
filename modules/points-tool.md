@@ -74,9 +74,10 @@ SUSTechPOINTS是面向自动驾驶的3D点云目标检测及追踪标注平台�
 选中目标，激活3D标注后，会出现3D标注控件，可分别操作每个轴的大小，旋转，位置。 该控件为threejs原生，参考[说明](https://threejs.org/docs/?q=transf#examples/en/controls/TransformControls)和[示例](https://threejs.org/examples/#misc_controls_transform)
 
 下图分别显示位置/大小/旋转的编辑
-![alt text](sustech-points-images/3d-edit.png)
-![alt text](sustech-points-images/3d-edit-scale.png)
-![alt text](sustech-points-images/3d-edit-rotate.png)
+
+<img src="sustech-points-images/3d-edit.png" alt="position" width="200"/>
+<img src="sustech-points-images/3d-edit-scale.png" alt="scale" width="200"/>
+<img src="sustech-points-images/3d-edit-rotate.png" alt="rotation" width="200"/>
 
 #### 2D空间编辑功能实现
 
