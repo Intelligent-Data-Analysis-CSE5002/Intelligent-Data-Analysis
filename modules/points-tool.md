@@ -9,8 +9,7 @@ title: 自动驾驶数据标注工具
 
 ## 简介
 
-## 点云分割标注工具
-## 图片分割标注工具
+
 ## SUSTechPOINTS - 3D目标检测及追踪标注工具
 
 SUSTechPOINTS是面向自动驾驶的3D点云目标检测及追踪标注平台，支持如下功能
@@ -125,7 +124,14 @@ SUSTechPOINTS是面向自动驾驶的3D点云目标检测及追踪标注平台�
 
 #### Webgl画布与批处理编辑
 
-## 其他标注工具
+## 点云分割标注工具
+
+![point-cloud-semseg](./semseg-points-images/point-semseg.png)
+## 图片分割标注工具
+
+
+![semantic segmentation tool](./semseg-images/semseg.png)
+
 
 
 
