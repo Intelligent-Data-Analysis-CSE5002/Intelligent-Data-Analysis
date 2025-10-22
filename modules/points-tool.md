@@ -32,25 +32,25 @@ SUSTechPOINTS是面向自动驾驶的3D点云目标检测及追踪标注平台�
 ![batch edit](./sustech-points-images/batch.png)
 
 使用方法参考 
-
 [主界面说明](https://github.com/naurril/SUSTechPOINTS/blob/fusion/README_cn.md)
-
+,
 [标注方法](https://github.com/naurril/SUSTechPOINTS/blob/fusion/README_guide.md)
+,
+[快捷键说明](https://github.com/naurril/SUSTechPOINTS/blob/fusion/doc/shortcuts_cn.md)
 
-[快捷键](https://github.com/naurril/SUSTechPOINTS/blob/fusion/doc/shortcuts_cn.md)
+
 
 
 操作体验(校内访问): https://172.18.35.208:18082
-> 默认登录guest账号，登录后选择scene/frame即可开始浏览
-(guest账号没有保存权限)
+> 默认登录guest账号，登录后选择scene/frame即可开始浏览(guest账号没有保存权限)
 
 ### 整体架构
 
-- 整体系统采用服务器-浏览器架构。
+1. 整体系统采用服务器-浏览器架构。
 
-- 服务器端负责信息获取，用户管理等常用功能，并提供api接口支持自动标注算法运行。服务端采用cherrypy库实现webserver，通过tensorflow运行标注算法。 标注算法支持根据点云推理目标物体的旋转方向，前端利用该算法结果提供更多的交互式/启发式标注功能。
+1. 服务器端负责信息获取，用户管理等常用功能，并提供api接口支持自动标注算法运行。服务端采用cherrypy库实现webserver，通过tensorflow运行标注算法。 标注算法支持根据点云推理目标物体的旋转方向，前端利用该算法结果提供更多的交互式/启发式标注功能。
 
-- 客户端负责除自动标注算法之外的所有操作和渲染。3D渲染部分采用three.js库。2D部分使用svg功能，部分算法依赖tfjs库，部分UI依赖react，基本无其他依赖。前端使用npm编译和发布。
+1. 客户端负责除自动标注算法之外的所有操作和渲染。3D渲染部分采用three.js库。2D部分使用svg，部分算法依赖tfjs库，部分UI依赖react，无其他依赖。前端使用npm编译和发布。
 
 
 
@@ -59,13 +59,13 @@ SUSTechPOINTS是面向自动驾驶的3D点云目标检测及追踪标注平台�
 
 #### 渲染
 
-- 点云直接使用threejs的points方法进行渲染，可以修改点的大小和颜色
+1. 点云直接使用threejs的points方法进行渲染，可以修改点的大小和颜色
 
-- 主界面包含4个camera渲染区域（3个子视图窗口和一个主视图窗口）。主视角窗口的相机使用perspective投影方式，确保效果与人眼观察世界一致。子视角采用orthogonal投影方法，确保编辑的精确性。
+1. 主界面包含4个camera渲染区域（3个子视图窗口和一个主视图窗口）。主视角窗口的相机使用perspective投影方式，确保效果与人眼观察世界一致。子视角采用orthogonal投影方法，确保编辑的精确性。
 
-- 主界面点云的拖拽/移动操作使用[OribitControl](https://threejs.org/docs/?q=orbit#examples/en/controls/OrbitControls)
+1. 主界面点云的拖拽/移动操作使用[OribitControl](https://threejs.org/docs/?q=orbit#examples/en/controls/OrbitControls)
 
-- 相机图片通过canva方式渲染到对应的html元素中
+1. 相机图片通过canva方式渲染到对应的html元素中
 
 
 
@@ -83,7 +83,7 @@ SUSTechPOINTS是面向自动驾驶的3D点云目标检测及追踪标注平台�
 
 该功能通过对目标物体的多个透视图操作，完成精确的3Dbox编辑。 如下图中3个子视图上均可以实现对相应轴的操作（大小/旋转/位置）。
 
-实现方法：对应的编辑空间后方为3D渲染区域(threejs)，表层为透明的2D编辑界面(SVG，途中虚线即为可拖拽对象)。在2D界面操作后根据投影关系计算3D框的变换，让操作者感觉和直接操作3D框效果一样。类似于在窗户玻璃上进行拖拽操作，实现对屋子里的物体的变换。
+实现方法：对应的编辑区域后方为3D渲染区域(threejs)，表层为透明的2D编辑界面(SVG，虚线即为可拖拽对象)。在2D界面操作后根据投影关系计算3D框的变换，让操作者感觉和直接操作3D框效果一样。类似于在窗户玻璃上进行拖拽，实现对屋子里的物体的操作。
 
 
 <img src="sustech-points-images/2d-edit.png" alt="2d edit" height="400"/>
@@ -91,13 +91,13 @@ SUSTechPOINTS是面向自动驾驶的3D点云目标检测及追踪标注平台�
 #### 批处理界面渲染
 
 
-批处理编辑界面和主界面上的子视图编辑原理一致，只是批处理一次显示了多个对象的编辑界面。并增加了一些针对多个对象的编辑功能，如选中/删除/同步等。
+批处理编辑界面和主界面上的子视图编辑原理一致，只是批处理一次显示了多个对象的编辑界面。并增加了一些针对多个对象的编辑功能，如选中/删除/同步/插值/自动标注等。
 
 
 ![batch edit](./sustech-points-images/batch.png)
 #### 自动标注算法
 
-各种自动/辅助标注算法，如果涉及到目标对象的旋转，均会使用[deepannotate](https://github.com/naurril/DeepAnnotate)算法，部署在webserver端，通过api访问。
+各种自动/辅助标注算法，如果涉及到目标对象的旋转，均会使用[deepannotate](https://github.com/naurril/DeepAnnotate)算法，部署在server端，通过api访问。
 
 其原理是根据一片给定的3D点云，计算该物体的旋转（重点是正前方）角度。算法使用[PointNet](https://arxiv.org/abs/1612.00593)骨干网络和分类头（120个分类，每个类别表示3度的区间）实现。推理时借助TTA方法(test time augmentation)进行结果融合：通过将输入点云随机旋转变成多份数据，最后使用输出平均值作为最后结果。
 
@@ -114,12 +114,37 @@ SUSTechPOINTS是面向自动驾驶的3D点云目标检测及追踪标注平台�
 
 #### 多帧自动标注算法
 
+该功能是对同一个物体在多帧中的实例进行自动/半自动标注。具体方法是根据一个或多个示例，利用插值/kalman滤波等算法，在多帧数据中完成改物体的自动标注。具体算法如下：
+1. 以已经标注的实例为基础(记为anchor)，向前一帧或像后一帧循环执行如下操作：
+1. 插值或者使用kalman滤波估计初始3Dbox
+1. 根据初始3Dbox，估计旋转角度，根据视角和点云估计目标位置，大小保持不变
+1. 对下一帧执行上述2个步骤，直到完成所有帧内该物体的标注
+
+![auto-anno-multi-frame](./sustech-points-images/auto-anno-car.gif)
+
+图中展示了根据某物体在某一帧的标注，自动完成其他帧同一物体的标注过程
 
 #### 加载速度优化
+
+
 
 #### 点云染色
 
 #### 2D框生成
+
+根据3D标注生成2D框的标注，使用点云投射生成2D框
+- 如果根据3DBox顶点生成的2D框，一般会有过大的问题，部分被遮挡的情况不能根据实际大小调整
+- 使用投影点云生成2D框可以解决上述问题
+- 点云太稀疏时不准确
+
+我们采用的方法：自动生成+手工修改
+
+![2d box generation](./sustech-points-images/2d-box-gen.png)
+
+下图是生成的2D框的示例
+
+![alt text](image.png)
+
 
 #### 目标物体朝向优化
 
