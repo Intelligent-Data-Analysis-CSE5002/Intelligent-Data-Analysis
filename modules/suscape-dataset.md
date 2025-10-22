@@ -29,7 +29,7 @@ title: SUScape数据集介绍
 
 ![dataset sample](./suscape-dataset-images/front-lidar-1.gif)
 
-数据样例浏览网址(校内访问): https://172.18.35.208:18082
+数据样例浏览网址(校内访问): [https://172.18.35.208:18082](https://172.18.35.208:18082)
 默认登录guest账号，登录后选择scene/frame即可开始浏览
 (guest账号没有保存权限)
 
