@@ -166,7 +166,9 @@ SUSTechPOINTS是面向自动驾驶的3D点云目标检测及追踪标注平台�
 
 ![semantic segmentation tool](./semseg-images/semseg.png)
 
+体验  [https://172.18.35.208:18083](https://172.18.35.208:18083/?scene=semseg-car&image=000000.png)
 
+[操作说明](modules/semseg-images/guide_cn.md)
 
 
 ## 点云分割标注工具
