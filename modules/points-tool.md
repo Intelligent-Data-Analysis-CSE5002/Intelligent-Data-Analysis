@@ -44,6 +44,15 @@ SUSTechPOINTS是面向自动驾驶的3D点云目标检测及追踪标注平台�
 操作体验(校内访问): https://172.18.35.208:18082
 > 默认登录guest账号，登录后选择scene/frame即可开始浏览(guest账号没有保存权限)
 
+
+示例视频(单物体标注)
+<video controls>
+    <source src="./sustech-points-images/3d-ann.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+</video>
+
+
+
 ### 整体架构
 
 1. 整体系统采用服务器-浏览器架构。
@@ -161,14 +170,25 @@ SUSTechPOINTS是面向自动驾驶的3D点云目标检测及追踪标注平台�
 ![alt text](./semseg-images/semseg-example.png)
 
 
-语义分割工具的关键功能为多边形的操作和计算，包括绘制/修改/合并/intersection，对象的管理，类别编辑等。
+语义分割工具的关键功能为多边形的操作和计算，包括绘制/修改/合并/intersection等，以及对象的管理/类别编辑/copy/paste/redu/undo等。
 
+
+下图为操作界面
 
 ![semantic segmentation tool](./semseg-images/semseg.png)
 
-体验  [https://172.18.35.208:18083](https://172.18.35.208:18083/?scene=semseg-car&image=000000.png)
+
+体验网址  [https://172.18.35.208:18083](https://172.18.35.208:18083/?scene=semseg-car&image=000000.png)
+
 
 [操作说明](modules/semseg-images/guide_cn.md)
+
+
+操作示例视频
+<video controls>
+    <source src="./semseg-images/sem-seg-ann.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+</video>
 
 
 ## 点云分割标注工具
