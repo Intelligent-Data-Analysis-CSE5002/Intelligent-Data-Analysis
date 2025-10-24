@@ -46,7 +46,7 @@ SUSTechPOINTS是面向自动驾驶的3D点云目标检测及追踪标注平台�
 
 
 示例视频(单物体标注)
-<video controls>
+<video controls width="640">
     <source src="./sustech-points-images/3d-ann.mp4" type="video/mp4">
     Your browser does not support the video tag.
 </video>
@@ -185,7 +185,7 @@ SUSTechPOINTS是面向自动驾驶的3D点云目标检测及追踪标注平台�
 
 
 操作示例视频
-<video controls>
+<video controls width="640">
     <source src="./semseg-images/sem-seg-ann.mp4" type="video/mp4">
     Your browser does not support the video tag.
 </video>
