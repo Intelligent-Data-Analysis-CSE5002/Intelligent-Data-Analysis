@@ -228,6 +228,8 @@ plt.show()
 
 ![alt text](./suscape-dataset-images/image-3.png)
 
+![alt text](./suscape-dataset-images/image-4.png)
+
 
 参考[demo代码](https://github.com/sustech-isus/suscape-devkit/blob/main/tests/demo.py)
 
