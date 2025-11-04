@@ -13,6 +13,7 @@ title: SUScape数据集使用说明
 
 
 下载后将数据解压，目录结构如下(v1.0-mini示例)
+
 ![suscape-extracted](./suscape-dataset-images/suscape_extracted.png)
 
 ## 数据格式说明
@@ -95,16 +96,25 @@ suscape_scenes/scene-000100
 
 ```
 
-> lidar_pose为主雷达在本场景内的位置信息（以第一帧为原点）， 
 
 
-## 开发包下载
+> lidar_pose为主雷达在本场景内的位置信息（以第一帧为原点），
+
+> 部分目录不包含在下载文件中
+
+
+## 开发包安装
 ```
 pip install numpy
-pip install suscape-devkit
+
+git clone https://github.com/sustech-isus/suscape-devkit
+
+cd suscape-devkit
+pip install -e .
+
 ```
 
-## 测试
+## 开发包使用测试
 
 
 ```
