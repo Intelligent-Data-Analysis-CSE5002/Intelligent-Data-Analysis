@@ -211,14 +211,12 @@ for p in pts_2d:
 plt.imshow(image)
 plt.show()
 
-
-
-
-
-
 ```
+![alt text](./suscape-dataset-images/image-1.png)
 
+![alt text](./suscape-dataset-images/image-2.png)
 
+![alt text](./suscape-dataset-images/image-3.png)
 参考demo
 
 https://github.com/sustech-isus/suscape-devkit/blob/main/tests/demo.ipynb
