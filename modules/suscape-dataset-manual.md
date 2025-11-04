@@ -121,7 +121,7 @@ pip install -e .
 from suscape.dataset import SuscapeDataset, SuscapeScene, box3d_to_corners
 
 # 加载数据集
-dataset = SuscapeDataset('../suscape-test')
+dataset = SuscapeDataset('../suscape-test')  #  解压后的数据集根路径
 
 # 获取所有场景名称
 print(dataset.get_scene_names())
@@ -227,9 +227,9 @@ plt.show()
 ![alt text](./suscape-dataset-images/image-2.png)
 
 ![alt text](./suscape-dataset-images/image-3.png)
-参考demo
 
-https://github.com/sustech-isus/suscape-devkit/blob/main/tests/demo.ipynb
+
+参考[demo代码](https://github.com/sustech-isus/suscape-devkit/blob/main/tests/demo.py)
 
 
 ## 相关论文与资源
