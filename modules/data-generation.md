@@ -46,8 +46,6 @@ $v$: 每个参数的符号或值数量（Number of symbols per factor）。
 
 典型场景：可靠性工程、风险评估、交通微观仿真、排队论系统、期权与利率路径生成。
 
-
-
 ### 合成渲染/程序化内容（CGI / Synthetic Rendering）
 
 做法：用 3D 引擎或渲染管线 + 程序化资产/材质/光照/噪声来出图/出视频/出点云，标签自动生成。
@@ -90,7 +88,7 @@ $v$: 每个参数的符号或值数量（Number of symbols per factor）。
 
 典型场景：网络/图生成（给定度分布）、合成分类账/日志、罕见事件约束采样。 -->
 
-## Generative model 
+## Generative model
 
 ### 辅助技术：潜在空间插值（Latent Space Interpolation）
 
@@ -103,7 +101,7 @@ $\mathbf{z}_{\text{interp}}$: 插值后的潜在向量。
 
 $\mathbf{z}_A, \mathbf{z}_B$: 两个来自潜在空间的起始向量。
 
-$\alpha$: 插值系数，其中 $\alpha \in (0,1) $。
+$\alpha$: 插值系数，其中 $\alpha \in [0,1] $。
 
 新数据（平滑变体）的生成过程该技术利用深度模型（尤其是 VAE）潜在空间的连续性来构造新数据 。
 
@@ -115,11 +113,21 @@ $\alpha$: 插值系数，其中 $\alpha \in (0,1) $。
 
 输出：生成器输出一个连续的、从 $\mathbf{x}_A$ 渐变到 $\mathbf{x}_B$ 的新合成数据序列。
 
-具体例子：驾驶轨迹的细微变异生成用于生成 ADS 验证所需的边缘案例。通过插值，可以平滑地生成从“安全跟车”轨迹到“轻微追尾风险”轨迹之间的一系列细微变异数据，用于评估 ADS 对不确定性的鲁棒性。
+具体例子：
 
-### Autoregressive
+- 驾驶轨迹的细微变异生成用于生成 ADS 验证所需的边缘案例。通过插值，可以平滑地生成从“安全跟车”轨迹到“轻微追尾风险”轨迹之间的一系列细微变异数据，用于评估 ADS 对不确定性的鲁棒性。
 
-$$ p(\mathbf{x}) = \prod_{i=1}^{D} p\!\left(x_i \mid x_{<i}\right) $$
+- 人脸转换，从一张人脸转换到另一张人脸。如图1([StyleGAN2](https://arxiv.org/abs/1912.04958))所示。
+
+<figure>
+    <img src=".\data-generation-images\interpolation.png" alt="interpolation" style="max-width:100%;">
+    <figcaption> 图 1：潜在空间插值示例——从样本 A 平滑过渡到样本 B  。</figcaption>
+
+</figure>
+
+<!-- ### Autoregressive
+
+$$ p(\mathbf{x}) = \prod_{i=1}^{D} p\!\left(x_i \mid x_{<i}\right) $$ -->
 <!-- 按顺序建模（Transformer/PixelRNN）。优点：似然明确；缺点：推断慢。
 
 $ p(x)=∏_{i=1}^D​p(x_i​∣x_{<i}​) $
