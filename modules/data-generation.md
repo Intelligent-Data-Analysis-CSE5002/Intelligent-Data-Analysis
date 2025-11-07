@@ -46,6 +46,8 @@ $v$: 每个参数的符号或值数量（Number of symbols per factor）。
 
 典型场景：可靠性工程、风险评估、交通微观仿真、排队论系统、期权与利率路径生成。
 
+
+
 ### 合成渲染/程序化内容（CGI / Synthetic Rendering）
 
 做法：用 3D 引擎或渲染管线 + 程序化资产/材质/光照/噪声来出图/出视频/出点云，标签自动生成。
@@ -80,19 +82,45 @@ $v$: 每个参数的符号或值数量（Number of symbols per factor）。
 
 典型场景：序列/主题/分群的生成，缺失值补全，情景条件化生成。
 
-### 最大熵与约束驱动（Maximum Entropy / Constraint-based）
+<!-- ### 最大熵与约束驱动（Maximum Entropy / Constraint-based）
 
 做法：给定一组矩/边缘/规则，求满足这些约束且熵最大的分布；或解约束满足问题（CSP）后再随机化。
 
 优点：当你只确信少量统计量或硬约束时，非常自然。
 
-典型场景：网络/图生成（给定度分布）、合成分类账/日志、罕见事件约束采样。
+典型场景：网络/图生成（给定度分布）、合成分类账/日志、罕见事件约束采样。 -->
 
 ## Generative model 
 
+### 辅助技术：潜在空间插值（Latent Space Interpolation）
+
+潜在空间插值是一种数据生成技术，它本身不是独立的模型，而是 VAE 等深度生成模型用于数据增强和探索潜在空间的关键技术 。
+
+数学公式最常用的线性插值形式：
+$$\mathbf{z}_{\text{interp}} = \alpha \mathbf{z}_A + (1 - \alpha) \mathbf{z}_B$$
+
+$\mathbf{z}_{\text{interp}}$: 插值后的潜在向量。
+
+$\mathbf{z}_A, \mathbf{z}_B$: 两个来自潜在空间的起始向量。
+
+$\alpha$: 插值系数，其中 $\alpha \in (0,1) $。
+
+新数据（平滑变体）的生成过程该技术利用深度模型（尤其是 VAE）潜在空间的连续性来构造新数据 。
+
+选择锚点：在已训练模型的潜在空间中，选择两个代表不同特征的潜在向量 $\mathbf{z}_A$ 和 $\mathbf{z}_B$。
+
+构造路径：根据插值公式，在 $\mathbf{z}_A$ 和 $\mathbf{z}_B$ 之间生成一系列中间向量 $\mathbf{z}_{\text{interp}}$。
+
+解码：将每个 $\mathbf{z}_{\text{interp}}$ 输入到生成器网络（解码器）中。
+
+输出：生成器输出一个连续的、从 $\mathbf{x}_A$ 渐变到 $\mathbf{x}_B$ 的新合成数据序列。
+
+具体例子：驾驶轨迹的细微变异生成用于生成 ADS 验证所需的边缘案例。通过插值，可以平滑地生成从“安全跟车”轨迹到“轻微追尾风险”轨迹之间的一系列细微变异数据，用于评估 ADS 对不确定性的鲁棒性。
+
 ### Autoregressive
 
-按顺序建模（Transformer/PixelRNN）。优点：似然明确；缺点：推断慢。
+$$ p(\mathbf{x}) = \prod_{i=1}^{D} p\!\left(x_i \mid x_{<i}\right) $$
+<!-- 按顺序建模（Transformer/PixelRNN）。优点：似然明确；缺点：推断慢。
 
 $ p(x)=∏_{i=1}^D​p(x_i​∣x_{<i}​) $
 
@@ -113,8 +141,8 @@ $ p(x)=∏_{i=1}^D​p(x_i​∣x_{<i}​) $
 
 ### Energy-based / Flow-matching / Schrödinger Bridge / OT
 
-以能量或连续时间运输为核心，兼顾物理与概率解释。
-
+以能量或连续时间运输为核心，兼顾物理与概率解释。 -->
+<!-- $ \frac{d x(t)}{dt} = v_{\theta}\!\big(x(t), t\big), \qquad x(0)\!\sim p_0,\;\; x(1)\!\sim p_{\text{data}} $ -->
 
 # 导航链接
 
