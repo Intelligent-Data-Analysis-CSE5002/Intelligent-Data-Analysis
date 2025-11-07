@@ -15,7 +15,7 @@ title: 数据生成和场景编辑
 
 # 方法总览
 
-## Traditional method (Pre-DL)
+## 知识驱动与规则基系统（Rule-Based Approaches）
 
 ### 规则/程序生成（Rule-based / Procedural / Agent-based）
 
@@ -25,7 +25,18 @@ title: 数据生成和场景编辑
 
 典型场景：仿真器（交通/物流/金融市场）、地形/地图/网络拓扑程序化生成、合成日志。
 
-例如
+例如，组合测试用于高效地生成测试用例，通过确保输入参数的关键组合被覆盖来发现系统缺陷。其核心概念是覆盖阵列（Covering Array, CA）。覆盖阵列定义公式 (Covering Array Notation):
+$$\text{CA}(N; t, k, v)$$
+
+$N$: 数组中的行数（即生成的测试用例总数）。
+
+$t$: 强度（Strength），表示希望覆盖的参数组合的最大元数（例如， $t=2$ 表示覆盖所有两两组合）。
+
+$k$: 参数数量（Number of factors）。
+
+$v$: 每个参数的符号或值数量（Number of symbols per factor）。
+
+一个 $CA(N; t, k, v)$ 是一个 $N \times k$ 矩阵，它使用来自 $v$ 元字母表 $G$ 的符号，确保在任何 $t \times N$ 子数组中， $G^t$ 中的每个 $t$ 元组都被覆盖至少一次。
 
 ### 物理/数值仿真 + 蒙特卡罗（Simulation / Monte Carlo）
 
@@ -34,6 +45,14 @@ title: 数据生成和场景编辑
 优点：与现实机理一致，便于做灵敏度分析与不确定性传播。
 
 典型场景：可靠性工程、风险评估、交通微观仿真、排队论系统、期权与利率路径生成。
+
+### 合成渲染/程序化内容（CGI / Synthetic Rendering）
+
+做法：用 3D 引擎或渲染管线 + 程序化资产/材质/光照/噪声来出图/出视频/出点云，标签自动生成。
+
+优点：可控性强、覆盖极端角落；与仿真/规则法常组合。
+
+## 经典统计建模与概率推断（Statistical Modelling）
 
 ### 参数化统计建模（Parametric）
 
@@ -44,6 +63,7 @@ title: 数据生成和场景编辑
 典型场景：金融风控（联合违约/收益）、可靠性寿命分布、计数/到达过程。
 
 ### 非参数与重采样（Nonparametric / Resampling）
+
 核心：尽量少假设，直接用样本近似密度或不确定性，Bootstrap、Permutation、KDE（核密度估计）、直方图采样、平滑重采样。
 
 优点：少假设，贴近数据分布；在样本不大时可稳健估计不确定性。
@@ -68,15 +88,10 @@ title: 数据生成和场景编辑
 
 典型场景：网络/图生成（给定度分布）、合成分类账/日志、罕见事件约束采样。
 
-### 合成渲染/程序化内容（CGI / Synthetic Rendering）
-
-做法：用 3D 引擎或渲染管线 + 程序化资产/材质/光照/噪声来出图/出视频/出点云，标签自动生成。
-
-优点：可控性强、覆盖极端角落；与仿真/规则法常组合。
-
 ## Generative model 
 
 ### Autoregressive
+
 按顺序建模（Transformer/PixelRNN）。优点：似然明确；缺点：推断慢。
 
 $ p(x)=∏_{i=1}^D​p(x_i​∣x_{<i}​) $
@@ -84,17 +99,20 @@ $ p(x)=∏_{i=1}^D​p(x_i​∣x_{<i}​) $
 ### VAE
 显式潜变量 + 变分下界；优点：有似然下界、可控；缺点：模糊/后验坍缩需技巧。
 
-
 ### GAN
+
 对抗学习，生成质量高；缺点：训练不稳、无显式似然。
 
 ### Normalizing Flows
+
 可逆映射、精确似然、采样快；对结构设计有要求。
 
 ### Diffusion/Score-based
+
 鲁棒、质量高、覆盖好；采样步数多（可加速）。
 
 ### Energy-based / Flow-matching / Schrödinger Bridge / OT
+
 以能量或连续时间运输为核心，兼顾物理与概率解释。
 
 
