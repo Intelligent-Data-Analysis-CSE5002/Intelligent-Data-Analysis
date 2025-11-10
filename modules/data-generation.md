@@ -259,12 +259,18 @@ $$\min_{G} \max_{D} V(D, G) = \mathbb{E}_{\mathbf{x} \sim p_{data}(\mathbf{x})} 
 </figure>
 
 
-$$ z = f_θ (x),\quad x = f^{-1}_{\theta}(z),\quad z \in N(0, I). $$
+$$
+z = f_{\theta}(x),\quad x = f^{-1}_{\theta}(z),\quad z \sim \mathcal{N}(0, I)
+$$
 
 - Exact likelihood via change of variables (computable and differentiable):
-$$ p_X (x) =  p_Z ( f^{-1}_{\theta}(x) )  | \det (\partial f^{-1}_{\theta}(x)  / \partial x )| $$
+$$
+p_X (x) =  p_Z\!\big( f^{-1}_{\theta}(x) \big)  \left| \det \frac{\partial f^{-1}_{\theta}(x)}{ \partial x } \right|
+$$
 
-$$ NLL = - log p_X (x) = - log p_Z f_\theta (x) - log | \det J f_\theta (x) | $$
+$$
+	NLL = - \log p_X (x) = - \log p_Z\big(f_{\theta}(x)\big) - \log \left| \det J f_{\theta}(x) \right|
+$$
 
 ### Diffusion
 
@@ -305,13 +311,11 @@ DM 的训练目标是学习一个模型 $\epsilon_{\theta}$ 来预测在任意�
 % \quad \tilde{\beta}_t = \frac{1-\bar{\alpha}_{t-1}}{\,1-\bar{\alpha}_t\,}\,\beta_t,
 %  -->
 
-$$ % 训练目标（ε-预测的简化 MSE）
+$$
 \mathcal{L}_{\text{simple}}
-= \mathbb{E}_{t,x_0,\epsilon}\Big[\,
-\big\|\epsilon - \epsilon_\theta(x_t,t)\big\|_2^2
-\,\Big],
-\quad x_t = \sqrt{\bar{\alpha}_t}\,x_0 + \sqrt{1-\bar{\alpha}_t}\,\epsilon.
- $$
+= \mathbb{E}_{t,\mathbf{x}_0,\boldsymbol{\epsilon}}\Big[\,\big\|\boldsymbol{\epsilon} - \boldsymbol{\epsilon}_\theta(\mathbf{x}_t,t)\big\|_2^2\,\Big],\\
+\mathbf{x}_t = \sqrt{\bar{\alpha}_t}\,\mathbf{x}_0 + \sqrt{1-\bar{\alpha}_t}\,\boldsymbol{\epsilon},\; \boldsymbol{\epsilon}\sim\mathcal{N}(0,I)
+$$
 
 损失函数均方误差 (MSE) 损失。
 
