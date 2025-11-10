@@ -38,13 +38,6 @@ $v$: 每个参数的符号或值数量（Number of symbols per factor）。
 
 一个 $CA(N; t, k, v)$ 是一个 $N \times k$ 矩阵，它使用来自 $v$ 元字母表 $G$ 的符号，确保在任何 $t \times N$ 子数组中， $G^t$ 中的每个 $t$ 元组都被覆盖至少一次。
 
-<!-- ### 物理/数值仿真 + 蒙特卡罗（Simulation / Monte Carlo）
-
-做法：写出机理方程或随机过程（SDE、马尔可夫过程），用随机采样推进；或在仿真器里做随机扰动。
-
-优点：与现实机理一致，便于做灵敏度分析与不确定性传播。
-
-典型场景：可靠性工程、风险评估、交通微观仿真、排队论系统、期权与利率路径生成。 -->
 
 ### 合成渲染/程序化内容（CGI / Synthetic Rendering）
 
@@ -199,6 +192,14 @@ $\alpha$: 插值系数，其中 $\alpha \in [0,1] $。
 <figure>
     <img src=".\data-generation-images\interpolation.png" alt="interpolation" style="max-width:100%;">
     <figcaption> 图 1：潜在空间插值示例——从样本 A 平滑过渡到样本 B  。</figcaption>
+
+</figure>
+
+### 常见生成模型比较
+
+<figure>
+    <img src=".\data-generation-images\generative-overview.png" alt="interpolation" style="max-width:100%;">
+    <figcaption> 图 2：常见生成模型对比。</figcaption>
 
 </figure>
 
