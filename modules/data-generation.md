@@ -196,39 +196,58 @@ $\alpha$: 插值系数，其中 $\alpha \in [0,1] $。
 </figure>
 
 ### 常见生成模型比较
-
+如[图 2](https://lilianweng.github.io/posts/2021-07-11-diffusion-models/)所示。
 <figure>
     <img src=".\data-generation-images\generative-overview.png" alt="interpolation" style="max-width:100%;">
     <figcaption> 图 2：常见生成模型对比。</figcaption>
 
 </figure>
 
-<!-- ### Autoregressive
+### Variational AutoEncoders (VAE)
 
-$$ p(\mathbf{x}) = \prod_{i=1}^{D} p\!\left(x_i \mid x_{<i}\right) $$ -->
-<!-- 按顺序建模（Transformer/PixelRNN）。优点：似然明确；缺点：推断慢。
+VAE 将输入数据 $\mathbf{x}$ 编码为潜在空间 $\mathbf{Z}$ 上的一个概率分布 $q_{\phi}(\mathbf{z})$核心公式 (Core Formula)证据下界 (ELBO) 的最大化 (Maximization of the Evidence Lower Bound)。 
 
-$ p(x)=∏_{i=1}^D​p(x_i​∣x_{<i}​) $
+VAE 通过最大化 ELBO 来近似数据的对数似然 $\log p(\mathbf{x})$ ：
 
-### VAE
-显式潜变量 + 变分下界；优点：有似然下界、可控；缺点：模糊/后验坍缩需技巧。
+$$
+\mathcal{L}(\theta,\phi;\mathbf{x})
+= \mathbb{E}_{\mathbf{z}\sim q_\phi(\mathbf{z}\mid \mathbf{x})}
+\!\left[\log p_\theta(\mathbf{x}\mid \mathbf{z})\right]
+- \mathrm{KL}\!\left(q_\phi(\mathbf{z}\mid \mathbf{x})\,\|\,p(\mathbf{z})\right).
+$$
+
+损失函数 (Loss Function)最大化 ELBO（即最小化负 ELBO）。
+
+损失函数平衡了两个目标：
+
+- 重建损失 (Reconstruction Loss)：$\log p_{\theta}(\mathbf{x})$
+
+- KL 散度损失 (KL Divergence Loss)：$D_{KL}$ 项，作为正则化，强制学到的潜在分布 $q_{\phi}$ 接近先验分布 $p(\mathbf{z})$。
 
 ### GAN
 
-对抗学习，生成质量高；缺点：训练不稳、无显式似然。
+GAN 由两个相互竞争的网络组成：生成器 ($G$) 负责生成逼真样本，判别器 ($D$) 负责判断样本是真实 ($x$) 还是伪造 ($G(z)$)。
 
-### Normalizing Flows
+$$\min_{G} \max_{D} V(D, G) = \mathbb{E}_{\mathbf{x} \sim p_{data}(\mathbf{x})} + \mathbb{E}_{\mathbf{z} \sim p(\mathbf{z})}$$
 
-可逆映射、精确似然、采样快；对结构设计有要求。
+损失函数 (Loss Function)：对抗性损失（零和博弈）。
 
-### Diffusion/Score-based
+- 判别器 ($D$) 目标：最大化 $V(D, G)$。它希望对真实样本 $x$ 的判断 $D(x)$ 接近 1，对生成样本 $G(z)$ 的判断 $D(G(z))$ 接近 0。
 
-鲁棒、质量高、覆盖好；采样步数多（可加速）。
+- 生成器 ($G$) 目标：最小化 $V(D, G)$。它希望 $D(G(z))$ 接近 1（即成功欺骗 $D$）。
 
-### Energy-based / Flow-matching / Schrödinger Bridge / OT
+### Normalizing Flow
 
-以能量或连续时间运输为核心，兼顾物理与概率解释。 -->
-<!-- $ \frac{d x(t)}{dt} = v_{\theta}\!\big(x(t), t\big), \qquad x(0)\!\sim p_0,\;\; x(1)\!\sim p_{\text{data}} $ -->
+### Diffusion
+
+前向过程逐步加噪声至纯噪声 $\mathbf{x}_T$。反向过程训练一个神经网络 $\epsilon_{\theta}$ 预测并去除噪声，将 $\mathbf{x}_T$ 逐步恢复到数据 $\mathbf{x}_0$。
+
+DM 的训练目标是学习一个模型 $\epsilon_{\theta}$ 来预测在任意时间步 $t$ 时加入的噪声 $\epsilon$：
+$$\mathcal{L} = \mathbb{E}_{t, \mathbf{x}_0, \mathbf{\epsilon}} $$
+
+损失函数 (Loss Function)均方误差 (MSE) 损失 (Mean Squared Error Loss)。
+
+目标：最小化预测噪声 $\epsilon_{\theta}$ 与真实噪声 $\epsilon$ 之间的 L2 距离。这一基于似然的稳定目标确保了训练的稳定性和优异的生成质量 8。
 
 # 导航链接
 
