@@ -284,7 +284,7 @@ $$ NLL = - log p_X (x) = - log p_Z f_\theta (x) - log | \det J f_\theta (x) | $$
 DM 的训练目标是学习一个模型 $\epsilon_{\theta}$ 来预测在任意时间步 $t$ 时加入的噪声 $\epsilon$：
 <!-- $$\mathcal{L} = \mathbb{E}_{t, \mathbf{x}_0, \mathbf{\epsilon}} $$ -->
 
-$$% ---------------------------
+<!-- % ---------------------------
 % Discrete-time DDPM (Ho et al., 2020) 核心公式
 % ---------------------------
 
@@ -303,7 +303,7 @@ $$% ---------------------------
 % % 反向条件分布（精确后验）
 % q(x_{t-1}\mid x_t, x_0) = \mathcal{N}\!\big(\tilde{\mu}_t(x_t,x_0),\ \tilde{\beta}_t I\big),
 % \quad \tilde{\beta}_t = \frac{1-\bar{\alpha}_{t-1}}{\,1-\bar{\alpha}_t\,}\,\beta_t,
-% $$
+%  -->
 
 $$ % 训练目标（ε-预测的简化 MSE）
 \mathcal{L}_{\text{simple}}
