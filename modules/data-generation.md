@@ -266,7 +266,7 @@ $$
 - Exact likelihood via change of variables (computable and differentiable):
 
 $$
-p_X (x) =  p_Z\!\big( f^{-1}_{\theta}(x) \big)  \left| \det \frac{\partial f^{-1}_{\theta}(x)}{ \partial x } \right|
+p_X (x) =  p_Z\big( f^{-1}_{\theta}(x) \big)  \left| \det \frac{\partial f^{-1}_{\theta}(x)}{ \partial x } \right|
 $$
 
 $$
