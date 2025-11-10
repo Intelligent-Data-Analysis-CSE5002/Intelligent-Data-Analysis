@@ -205,7 +205,13 @@ $\alpha$: 插值系数，其中 $\alpha \in [0,1] $。
 
 ### Variational AutoEncoders (VAE)
 
-VAE 将输入数据 $\mathbf{x}$ 编码为潜在空间 $\mathbf{Z}$ 上的一个概率分布 $q_{\phi}(\mathbf{z})$核心公式 (Core Formula)证据下界 (ELBO) 的最大化 (Maximization of the Evidence Lower Bound)。 
+<figure>
+    <img src=".\data-generation-images\vae.png" alt="interpolation" style="max-width:100%;">
+    <figcaption> 图 3：VAE</figcaption>
+
+</figure>
+
+如[图 3](https://lilianweng.github.io/posts/2018-08-12-vae/)所示，VAE 将输入数据 $\mathbf{x}$ 编码为潜在空间 $\mathbf{Z}$ 上的一个概率分布 $q_{\phi}(\mathbf{z})$核心公式 (Core Formula)证据下界 (ELBO) 的最大化 (Maximization of the Evidence Lower Bound)。 
 
 VAE 通过最大化 ELBO 来近似数据的对数似然 $\log p(\mathbf{x})$ ：
 
@@ -226,7 +232,13 @@ $$
 
 ### GAN
 
-GAN 由两个相互竞争的网络组成：生成器 ($G$) 负责生成逼真样本，判别器 ($D$) 负责判断样本是真实 ($x$) 还是伪造 ($G(z)$)。
+<figure>
+    <img src=".\data-generation-images\GAN.png" alt="interpolation" style="max-width:100%;">
+    <figcaption> 图 4：GAN</figcaption>
+
+</figure>
+
+如[图 4](https://www.kdnuggets.com/2017/01/generative-adversarial-networks-hot-topic-machine-learning.html)所示，GAN 由两个相互竞争的网络组成：生成器 ($G$) 负责生成逼真样本，判别器 ($D$) 负责判断样本是真实 ($x$) 还是伪造 ($G(z)$)。
 
 $$\min_{G} \max_{D} V(D, G) = \mathbb{E}_{\mathbf{x} \sim p_{data}(\mathbf{x})} + \mathbb{E}_{\mathbf{z} \sim p(\mathbf{z})}$$
 
@@ -238,16 +250,72 @@ $$\min_{G} \max_{D} V(D, G) = \mathbb{E}_{\mathbf{x} \sim p_{data}(\mathbf{x})} 
 
 ### Normalizing Flow
 
+如[图 5](https://lilianweng.github.io/posts/2018-10-13-flow-models/)所示
+
+<figure>
+    <img src=".\data-generation-images\NF.png" alt="interpolation" style="max-width:100%;">
+    <figcaption> 图 5：Normalizing Flow Model</figcaption>
+
+</figure>
+
+
+$$ z = f_θ (x),\quad x = f^{-1}_{\theta}(z),\quad z \in N(0, I). $$
+
+- Exact likelihood via change of variables (computable and differentiable):
+$$ p_X (x) =  p_Z ( f^{-1}_{\theta}(x) )  | \det (\partial f^{-1}_{\theta}(x)  / \partial x )| $$
+
+$$ NLL = - log p_X (x) = - log p_Z f_\theta (x) - log | \det J f_\theta (x) | $$
+
 ### Diffusion
 
-前向过程逐步加噪声至纯噪声 $\mathbf{x}_T$。反向过程训练一个神经网络 $\epsilon_{\theta}$ 预测并去除噪声，将 $\mathbf{x}_T$ 逐步恢复到数据 $\mathbf{x}_0$。
+<figure>
+    <img src=".\data-generation-images\diffusion.png" alt="interpolation" style="max-width:100%;">
+    <figcaption> 图 6：Diffusion Model</figcaption>
+
+</figure>
+
+
+如[图 6](researchgate.net/publication/382128283_Diffusion_Models_Tutorial_and_Survey?_tp=eyJjb250ZXh0Ijp7ImZpcnN0UGFnZSI6Il9kaXJlY3QiLCJwYWdlIjoiX2RpcmVjdCJ9fQ)所示，Diffusion模型有前向和反向的过程：
+
+- 前向过程逐步加噪声至纯噪声$\mathbf{x}_T$。
+
+- 反向过程训练一个神经网络 $\epsilon_{\theta}$ 预测并去除噪声，将 $\mathbf{x}_T$ 逐步恢复到数据 $\mathbf{x}_0$。
 
 DM 的训练目标是学习一个模型 $\epsilon_{\theta}$ 来预测在任意时间步 $t$ 时加入的噪声 $\epsilon$：
-$$\mathcal{L} = \mathbb{E}_{t, \mathbf{x}_0, \mathbf{\epsilon}} $$
+<!-- $$\mathcal{L} = \mathbb{E}_{t, \mathbf{x}_0, \mathbf{\epsilon}} $$ -->
 
-损失函数 (Loss Function)均方误差 (MSE) 损失 (Mean Squared Error Loss)。
+$$% ---------------------------
+% Discrete-time DDPM (Ho et al., 2020) 核心公式
+% ---------------------------
 
-目标：最小化预测噪声 $\epsilon_{\theta}$ 与真实噪声 $\epsilon$ 之间的 L2 距离。这一基于似然的稳定目标确保了训练的稳定性和优异的生成质量 8。
+% % 噪声调度与记号
+% \alpha_t = 1 - \beta_t,\qquad
+% \bar{\alpha}_t = \prod_{s=1}^{t} \alpha_s.
+
+% % 正向扩散（加噪）
+% q(x_t \mid x_{t-1}) = \mathcal{N}\!\big(\sqrt{\alpha_t}\,x_{t-1},\ (1-\alpha_t)\,I\big).
+
+% % 给定 x0 的边际闭式
+% q(x_t \mid x_0) = \mathcal{N}\!\big(\sqrt{\bar{\alpha}_t}\,x_0,\ (1-\bar{\alpha}_t)\,I\big),
+% \quad\text{等价地}\quad
+% x_t = \sqrt{\bar{\alpha}_t}\,x_0 + \sqrt{1-\bar{\alpha}_t}\,\epsilon,\ \ \epsilon\!\sim\!\mathcal{N}(0,I).
+
+% % 反向条件分布（精确后验）
+% q(x_{t-1}\mid x_t, x_0) = \mathcal{N}\!\big(\tilde{\mu}_t(x_t,x_0),\ \tilde{\beta}_t I\big),
+% \quad \tilde{\beta}_t = \frac{1-\bar{\alpha}_{t-1}}{\,1-\bar{\alpha}_t\,}\,\beta_t,
+% $$
+
+$$ % 训练目标（ε-预测的简化 MSE）
+\mathcal{L}_{\text{simple}}
+= \mathbb{E}_{t,x_0,\epsilon}\Big[\,
+\big\|\epsilon - \epsilon_\theta(x_t,t)\big\|_2^2
+\,\Big],
+\quad x_t = \sqrt{\bar{\alpha}_t}\,x_0 + \sqrt{1-\bar{\alpha}_t}\,\epsilon.
+ $$
+
+损失函数均方误差 (MSE) 损失。
+
+目标：最小化预测噪声 $\epsilon_{\theta}$ 与真实噪声 $\epsilon$ 之间的 L2 距离。这一基于似然的稳定目标确保了训练的稳定性和优异的生成质量。
 
 # 导航链接
 
