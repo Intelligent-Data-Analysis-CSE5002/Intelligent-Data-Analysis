@@ -264,12 +264,13 @@ z = f_{\theta}(x),\quad x = f^{-1}_{\theta}(z),\quad z \sim \mathcal{N}(0, I)
 $$
 
 - Exact likelihood via change of variables (computable and differentiable):
+
 $$
 p_X (x) =  p_Z\!\big( f^{-1}_{\theta}(x) \big)  \left| \det \frac{\partial f^{-1}_{\theta}(x)}{ \partial x } \right|
 $$
 
 $$
-	NLL = - \log p_X (x) = - \log p_Z\big(f_{\theta}(x)\big) - \log \left| \det J f_{\theta}(x) \right|
+NLL = - \log p_X (x) = - \log p_Z\big(f_{\theta}(x)\big) - \log \left| \det J f_{\theta}(x) \right|
 $$
 
 ### Diffusion
