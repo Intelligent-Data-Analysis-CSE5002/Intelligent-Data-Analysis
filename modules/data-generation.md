@@ -289,28 +289,6 @@ $$
 - 反向过程训练一个神经网络 $\epsilon_{\theta}$ 预测并去除噪声，将 $\mathbf{x}_T$ 逐步恢复到数据 $\mathbf{x}_0$。
 
 DM 的训练目标是学习一个模型 $\epsilon_{\theta}$ 来预测在任意时间步 $t$ 时加入的噪声 $\epsilon$：
-<!-- $$\mathcal{L} = \mathbb{E}_{t, \mathbf{x}_0, \mathbf{\epsilon}} $$ -->
-
-<!-- % ---------------------------
-% Discrete-time DDPM (Ho et al., 2020) 核心公式
-% ---------------------------
-
-% % 噪声调度与记号
-% \alpha_t = 1 - \beta_t,\qquad
-% \bar{\alpha}_t = \prod_{s=1}^{t} \alpha_s.
-
-% % 正向扩散（加噪）
-% q(x_t \mid x_{t-1}) = \mathcal{N}\!\big(\sqrt{\alpha_t}\,x_{t-1},\ (1-\alpha_t)\,I\big).
-
-% % 给定 x0 的边际闭式
-% q(x_t \mid x_0) = \mathcal{N}\!\big(\sqrt{\bar{\alpha}_t}\,x_0,\ (1-\bar{\alpha}_t)\,I\big),
-% \quad\text{等价地}\quad
-% x_t = \sqrt{\bar{\alpha}_t}\,x_0 + \sqrt{1-\bar{\alpha}_t}\,\epsilon,\ \ \epsilon\!\sim\!\mathcal{N}(0,I).
-
-% % 反向条件分布（精确后验）
-% q(x_{t-1}\mid x_t, x_0) = \mathcal{N}\!\big(\tilde{\mu}_t(x_t,x_0),\ \tilde{\beta}_t I\big),
-% \quad \tilde{\beta}_t = \frac{1-\bar{\alpha}_{t-1}}{\,1-\bar{\alpha}_t\,}\,\beta_t,
-%  -->
 
 $$
 \mathcal{L}_{\text{simple}}
